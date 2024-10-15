@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour, IDamagable
     private Material mat;
     private Color originalColor;
     
-    private void Start(){
+    private void start(){
         mat = GetComponent<Renderer>().material;
         originalColor = mat.color;
     }
@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour, IDamagable
         health -= damage;
 
         // Trigger the OnObjectDamaged event
-        HealthEventManager.OnObjectDamaged?.Invoke( health);
+        HealthEventManager.OnObjectDamaged?.Invoke(gameObject.name, health);
 
         ShowHitEffect();
 
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour, IDamagable
             Die();
 
             // Trigger the OnObjectDestroyed event
-            HealthEventManager.OnObjectDestroyed?.Invoke( health);
+            HealthEventManager.OnObjectDestroyed?.Invoke(gameObject.name, health);
         }
     }
     
